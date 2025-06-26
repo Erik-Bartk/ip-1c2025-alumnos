@@ -16,13 +16,13 @@ def fromRequestIntoCard(poke_data):
     return card
 
 # recupera los tipos del JSON
-def getTypes(poke_data):
-    types = []
-    for type in poke_data.get('types'):
-        t = safe_get(type, 'type','name' )
-        types.append(t)
+def getTypes(poke_data): 
+    types = [] # inicializamos una lista vacía para almacenar los tipos
+    for type in poke_data.get('types'): # iteramos sobre cada tipo en el JSON
+        t = safe_get(type, 'type','name' ) # obtenemos el nombre del tipo
+        types.append(t) # añadimos el tipo a la lista
         #tipes = str(types)   
-        #tipos = tipes.split() 
+        #tipos = tipes.split() # convertimos la lista de tipos en una cadena de texto (lo use para que me los devuelva con corchetes pero me modifica los bordes) 
     return types  
 
 # Usado cuando la información viene del template, para transformarla en una Card antes de guardarla en la base de datos.
@@ -52,9 +52,9 @@ def fromRepositoryIntoCard(repo_dict):
         image=repo_dict.get('image')
     )
 
-def safe_get(dic, *keys):
-    for key in keys:
-        if not isinstance(dic, dict):
+def safe_get(dic, *keys):  
+    for key in keys:   
+        if not isinstance(dic, dict): 
             return None
-        dic = dic.get(key, {})
-    return dic if dic else None
+        dic = dic.get(key, {})  
+    return dic if dic else None 

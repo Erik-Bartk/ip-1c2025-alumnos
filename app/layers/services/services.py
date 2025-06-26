@@ -13,10 +13,11 @@ def getAllImages():
     raw_list = transport.getAllImages()
     # 2) convertir cada img. en una card.
     Cards = []  # inicializamos un listado vacío para almacenar las cards
-    for raw_data in raw_list:
+    for raw_data in raw_list: # iteramos sobre cada imagen cruda obtenida de la API
         # 3) añadirlas a un nuevo listado que, finalmente, se retornará con todas las cards.
         Cards.append(fromRequestIntoCard(raw_data))  
     #retorna el listado de cards.
+    #Atencion: completar que los nombres alternativos, para cada personaje, deben elegirse al azar. Si no existen nombres alternativos, debe mostrar un mensaje adecuado.
     return Cards
     pass
 

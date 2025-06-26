@@ -9,10 +9,10 @@ def index_page(request):
 
 # esta función obtiene 2 listados: uno de las imágenes de la API y otro de favoritos, ambos en formato Card, y los dibuja en el template 'home.html'.
 def home(request):
-    images = services.getAllImages()
+    images = services.getAllImages() # se obtiene un listado de imágenes desde la capa de service.py. 
     favourite_list = []
     if request.user.is_authenticated:
-        favourite_list = services.get_favourite_images(request.user.id)
+        favourite_list = services.get_favourite_images(request.user.id) # se obtiene un listado de imágenes favoritas del usuario autenticado
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
@@ -21,14 +21,14 @@ def search(request):
     name = request.POST.get('query', '').lower() # se obtiene el nombre ingresado en el buscador y se convierte a minúsculas.
 
     # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
-    if (name != 'name'): 
-        images = []
-        favourite_list = []
-        for image in services.getAllImages():
-            if name in image.name.lower(): # se busca si el nombre ingresado está en el nombre de la imagen.
+    if (name != 'name'): # se verifica que el nombre no sea el valor por defecto del campo de búsqueda.
+        images = [] # debe traer un listado filtrado de imágenes, según si es o contiene ese nombre.
+        favourite_list = [] 
+        for image in services.getAllImages(): # se obtiene el listado de imágenes desde service.py.
+            if name in image.name.lower(): # se busca si el nombre ingresado está en el nombre de la imagen y lo devuelve en minusculas.
                 images.append(image)# si la imagen contiene el nombre ingresado, se agrega a la lista.
 
-        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list }) 
     else:
         return redirect('home')
 
